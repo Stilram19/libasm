@@ -3,8 +3,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
+# include <string.h>
 
 int main() {
-    char *str = "OMAR";
-    ft_write(1, str, 4);
+    char *s1 = "aba";
+    char *s2 = "aba";
+    printf("%d\n", ft_strcmp(s1, s2));
 }
