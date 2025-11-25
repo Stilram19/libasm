@@ -5,10 +5,6 @@
 # include <errno.h>
 
 int main() {
-    char *buf = malloc(sizeof(char) * 4);
-
-    int ret = ft_read(0, buf, 2);
-    printf("ret: %d\n", ret);
-    perror(NULL);
-    printf("%s\n", buf);
+    char *str = "OMAR";
+    ft_write(1, str, 4);
 }
