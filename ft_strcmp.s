@@ -12,15 +12,13 @@ ft_strcmp:
     cmp al, dl                  ; compare *s1 and *s2
     jne .break                  ; break the loop if *s1 != *s2
 
-    ; if *s1 == '\0' or *s2 == '\0', break the loop
+    ; break the loop if '\0' was reached
     test al, al
-    je .break
-    test dl, dl
     je .break
 
     inc rdi                     ; s1 += 1
     inc rsi                     ; s2 += 1
     jmp .loop                   ; iterate
-.break
+.break:
     sub rax, rdx
     ret

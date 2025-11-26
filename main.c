@@ -6,7 +6,7 @@
 # include <string.h>
 
 int main() {
-    char *s1 = "aba";
-    char *s2 = "aba";
-    printf("%d\n", ft_strcmp(s1, s2));
+    char s[10] = "OMAR\n";
+    write(1, s, 5);
+    return (0);
 }
