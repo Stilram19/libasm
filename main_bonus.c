@@ -210,7 +210,7 @@ void ft_atoi_base_test(void)
 
 int main(void)
 {
-    // t_list *list = NULL;
+    t_list *list = NULL;
 
     // ft_list_push_front_test(&list);
     // ft_list_size_test(&list);

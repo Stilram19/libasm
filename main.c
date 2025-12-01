@@ -1,5 +1,4 @@
 # include "libasm.h"
-# include "libasm_bonus.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -54,11 +53,11 @@ void test_write()
     printf("write ret: %zd\n", r2);
 
     errno = 0;
-    ssize_t r3 = ft_write(-1, "err\n", 4);
+    ft_write(-1, "err\n", 4);
     printf("ft_write errno: %d\n", errno);
 
     errno = 0;
-    ssize_t r4 = write(-1, "err\n", 4);
+    write(-1, "err\n", 4);
     printf("write errno: %d\n", errno);
 }
 
@@ -87,11 +86,11 @@ void test_read()
     }
 
     errno = 0;
-    ssize_t r3 = ft_read(-1, buf1, 10);
+    ft_read(-1, buf1, 10);
     printf("ft_read errno: %d\n", errno);
 
     errno = 0;
-    ssize_t r4 = read(-1, buf2, 10);
+    read(-1, buf2, 10);
     printf("read errno: %d\n", errno);
 }
 
