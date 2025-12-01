@@ -11,13 +11,13 @@ extern malloc
 ;     struct s_list   *next;
 ; }   t_list;
 ft_list_push_front:
-    ; validate arguments (no argument should be NULL)
+    ; validate parameters (no parameter should be NULL)
     test rdi, rdi
-    je .bad_argument
+    je .bad_parameter
     test rsi, rsi
-    je .bad_argument
+    je .bad_parameter
 
-    ; save argument into stack and align it
+    ; save parameter into stack and align it
     push rbp
     mov rbp, rsp
     sub rsp, 16
@@ -26,12 +26,12 @@ ft_list_push_front:
 
     ; allocate some memory for the new node
     mov edi, 16                     ; we need to allocate 16 byte block (sizeof(t_list))
-    call malloc
+    call malloc wrt ..plt
     ; return if malloc failed
     test rax, rax
     je .bad_alloc
 
-    ; restore stack (recover arguments)
+    ; restore stack (recover parameters)
     mov rdi, qword [rsp]
     mov rsi, qword [rsp + 8]
     add rsp, 16
@@ -54,5 +54,5 @@ ft_list_push_front:
     pop rbp
     ret
 
-.bad_argument:
+.bad_parameter:
     ret

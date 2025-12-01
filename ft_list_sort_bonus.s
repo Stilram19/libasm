@@ -11,13 +11,13 @@ section .text
 ; }   t_list;
 
 ft_list_sort:
-    ; argument validation (no argument should be NULL)
+    ; parameters validation (no parameter should be NULL)
     test rdi, rdi
-    je .bad_argument
+    je .bad_parameter
     cmp qword [rdi], 0
-    je .bad_argument
+    je .bad_parameter
     test rsi, rsi
-    je .bad_argument
+    je .bad_parameter
 
     ; saving callee saved registers
     push rbp
@@ -28,8 +28,8 @@ ft_list_sort:
     push r15
     sub rsp, 8                               ; align the stack
 
-    mov rbx, rdi                             ; rbx = first argument
-    mov r12, rsi                             ; r12 = second argument
+    mov rbx, rdi                             ; rbx = first parameter
+    mov r12, rsi                             ; r12 = second parameter
 
     mov r15, 1                               ; swapped = true (default)
 .outer_loop:
@@ -45,14 +45,13 @@ ft_list_sort:
     test r14, r14
     je .outer_loop
 
-
     ; compare curr->data and next->data
-    mov rdi, qword [r13]                    ; first argument is curr->data
-    mov rsi, qword [r14]                    ; second argument is next->data
+    mov rdi, qword [r13]                    ; first parameter is curr->data
+    mov rsi, qword [r14]                    ; second parameter is next->data
     call r12
 
     ; checking comparison's result
-    cmp rax, 0
+    cmp eax, 0                              ; attention!! return value is in eax not rax
     jle .no_swap
 .swap:
     ; swap curr->data and next->data
@@ -68,7 +67,7 @@ ft_list_sort:
     mov r13, qword [r13 + 8]                ; curr = curr->next
     jmp .inner_loop
 
-.bad_argument:
+.bad_parameter:
     ret
 
 .end:
