@@ -207,15 +207,55 @@ void ft_atoi_base_test(void)
         ft_atoi_base(" \t +42", "0123456789"));  // expected 42
 }
 
+void ft_atoi_base_test_2(void)
+{
+    int result;
+    int expected;
+    char base_max[89]; // 88 valid chars + null terminator
+    char base_314[315]; // 314 chars + null terminator
+    int i, j;
+
+    // base 2 test
+    expected = 11;
+    result = ft_atoi_base("1011", "01");
+    printf("Base 2 test: expected %d, got %d\n", expected, result);
+
+    // maximum valid base test
+    j = 0;
+    for (i = 33; i <= 126; i++) // printable ASCII
+    {
+        if (i == '+' || i == '-') 
+            continue;
+        base_max[j++] = (char)i;
+    }
+    base_max[j] = '\0'; // null-terminate
+
+    expected = 13; // example number to test
+    result = ft_atoi_base("0", base_max);
+    printf("Max base test: expected %d, got %d\n", expected, result);
+
+    // base 314 test (invalid)
+    for (i = 0; i < 314; i++)
+    {
+        // repeat base_max characters to fill 314 positions
+        base_314[i] = base_max[i % j];
+    }
+    base_314[314] = '\0';
+
+    expected = 0; // invalid base should return 0
+    result = ft_atoi_base("123", base_314);
+    printf("Base 314 test (invalid): expected %d, got %d\n", expected, result);
+}
 
 int main(void)
 {
-    t_list *list = NULL;
+    // t_list *list = NULL;
 
     // ft_list_push_front_test(&list);
     // ft_list_size_test(&list);
     // ft_list_remove_if_test(&list);
     // ft_list_sort_test(&list);
     // ft_atoi_base_test();
+    // ft_atoi_base_test_2();
     return 0;
 }

@@ -1,4 +1,5 @@
 NAME = libasm.a
+BONUS_NAME = libasm_bonus.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
@@ -35,13 +36,16 @@ BONUS_TEST_SRC = main_bonus.c
 
 all: $(NAME)
 
+bonus: $(BONUS_NAME)
+
 # build library with only mandatory objects
 $(NAME): $(OBJS)
-	$(AR) $(NAME) $^
+	$(AR) $(NAME) $(OBJS)
 
 # build library including bonus objects (recreate archive with bonus objs)
-bonus: $(OBJS) $(BONUS_OBJS)
-	$(AR) $(NAME) $^
+$(BONUS_NAME): $(OBJS) $(BONUS_OBJS)
+	$(AR) $(BONUS_NAME) $(OBJS) $(BONUS_OBJS)
+
 
 test: $(TEST)
 
@@ -52,8 +56,8 @@ $(TEST): $(TEST_SRC) $(NAME)
 test_bonus: $(BONUS_TEST)
 
 # bonus test: ensure bonus archive objects are present first
-$(BONUS_TEST): $(BONUS_TEST_SRC) bonus
-	$(CC) $(CFLAGS) $(BONUS_TEST_SRC) $(NAME) -o $(BONUS_TEST)
+$(BONUS_TEST): $(BONUS_TEST_SRC) $(BONUS_NAME)
+	$(CC) $(CFLAGS) $(BONUS_TEST_SRC) $(BONUS_NAME) -o $(BONUS_TEST)
 
 # generic rule to assemble .s to .o using nasm
 %.o: %.s
@@ -63,8 +67,8 @@ clean:
 	@rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	@rm -f $(NAME) $(TEST) $(BONUS_TEST)
+	@rm -f $(NAME) $(BONUS_NAME) $(TEST) $(BONUS_TEST)
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re test test_bonus
+.PHONY: all clean fclean re test test_bonus
